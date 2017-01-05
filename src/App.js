@@ -3,29 +3,16 @@ import './App.css';
 
 import { connect } from 'react-redux'
 import { deleteApp, fetchReviews }  from './actions'
+import { bindActionCreators } from 'redux'
 
 
 class App extends Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.fetchReviews = this.fetchReviews.bind(this);
-  // }
-
-  // async fetchReviews(id, name) {
-  //   console.log('this.fetchReviews');
-  //   await timeout(2000)
-  //   const response = await fetch(`data/${id}.json`)
-  //   const content = await response.text()
-  //   this.props.displayReviews(name, content)
-  //   // send email
-  //   // business logic
-  // }
-
   render() {
+    const bondActionCreators = bindActionCreators({ deleteApp }, this.props.dispatch)
     const apps = this.props.apps.map((app) => {
       return <li key={app.id}>
-        <a href="#" onClick={ () => fetchReviews(app.id, app.name) }>{app.name}</a>
-        <button onClick={ () => this.props.deleteApp(app.id) }>x</button>
+        <a href="#" onClick={ () => fetchReviews(this.props.dispatch, app.id, app.name) }>{app.name}</a>
+        <button onClick={ () => bondActionCreators.deleteApp(app.id) }>x</button>
       </li>
     })
     return (
@@ -50,6 +37,6 @@ const connectedApp = connect((state) => {
     apps: state.apps,
     reviews: state.reviews
   }
-}, { deleteApp })(App)
+})(App)
 
 export default connectedApp;
