@@ -4344,6 +4344,10 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
+redux-saga@^0.14.1:
+  version "0.14.1"
+  resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.14.1.tgz#400e8c1749e557c345f386a388977f757b3a3db3"
+
 redux-thunk@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.1.0.tgz#c724bfee75dbe352da2e3ba9bc14302badd89a98"
