@@ -2,28 +2,29 @@ import React, { Component } from 'react';
 import './App.css';
 
 import { connect } from 'react-redux'
-import { deleteApp, displayReviews }  from './actions'
-import { timeout } from './lib'
+import { deleteApp, fetchReviews }  from './actions'
+
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.fetchReviews = this.fetchReviews.bind(this);
-  }
+  // constructor(props) {
+  //   super(props)
+  //   this.fetchReviews = this.fetchReviews.bind(this);
+  // }
 
-  // https://itunes.apple.com/us/rss/customerreviews/page=1/sortBy=mostRecent/id=715886894/json
-  async fetchReviews(id, name) {
-    console.log('this.fetchReviews');
-    await timeout(2000)
-    const response = await fetch(`data/${id}.json`)
-    const content = await response.text()
-    this.props.displayReviews(name, content)
-  }
+  // async fetchReviews(id, name) {
+  //   console.log('this.fetchReviews');
+  //   await timeout(2000)
+  //   const response = await fetch(`data/${id}.json`)
+  //   const content = await response.text()
+  //   this.props.displayReviews(name, content)
+  //   // send email
+  //   // business logic
+  // }
 
   render() {
     const apps = this.props.apps.map((app) => {
       return <li key={app.id}>
-        <a href="#" onClick={ () => this.fetchReviews(app.id, app.name) }>{app.name}</a>
+        <a href="#" onClick={ () => fetchReviews(app.id, app.name) }>{app.name}</a>
         <button onClick={ () => this.props.deleteApp(app.id) }>x</button>
       </li>
     })
@@ -49,6 +50,6 @@ const connectedApp = connect((state) => {
     apps: state.apps,
     reviews: state.reviews
   }
-}, { deleteApp, displayReviews })(App)
+}, { deleteApp })(App)
 
 export default connectedApp;
