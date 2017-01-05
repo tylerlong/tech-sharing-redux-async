@@ -15,10 +15,19 @@ const apps = (state = defaultApps, action) => {
       return state
   }
 }
+const reviews = (state = { name: '', content: '' }, action) => {
+  switch (action.type) {
+    case 'DISPLAY_REVIEWS':
+      return { name: action.name, content: action.content }
+    default:
+      return state
+  }
+}
 
 
-const combinedReducers = combineReducers( {
-  apps
+const combinedReducers = combineReducers({
+  apps,
+  reviews
 });
 
 export default combinedReducers
