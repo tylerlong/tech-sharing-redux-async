@@ -3,16 +3,16 @@ import './App.css';
 
 import { connect } from 'react-redux'
 import { deleteApp, fetchReviews }  from './actions'
-import { bindActionCreators } from 'redux'
+// import { bindActionCreators } from 'redux'
 
 
 class App extends Component {
   render() {
-    const bondActionCreators = bindActionCreators({ deleteApp }, this.props.dispatch)
+    // const bondActionCreators = bindActionCreators({ deleteApp }, this.props.dispatch)
     const apps = this.props.apps.map((app) => {
       return <li key={app.id}>
-        <a href="#" onClick={ () => fetchReviews(this.props.dispatch, app.id, app.name) }>{app.name}</a>
-        <button onClick={ () => bondActionCreators.deleteApp(app.id) }>x</button>
+        <a href="#" onClick={ () => this.props.fetchReviews(app.id, app.name) }>{app.name}</a>
+        <button onClick={ () => this.props.deleteApp(app.id) }>x</button>
       </li>
     })
     return (
@@ -37,6 +37,6 @@ const connectedApp = connect((state) => {
     apps: state.apps,
     reviews: state.reviews
   }
-})(App)
+}, { deleteApp, fetchReviews })(App)
 
 export default connectedApp;
